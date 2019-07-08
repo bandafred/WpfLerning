@@ -23,15 +23,19 @@ namespace WpfLerning.ViewModels
             set { SetValue(FilteredProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Filtered.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty FilteredProperty =
-            DependencyProperty.Register("Filtered", typeof(string), typeof(PersonsViewModel), new PropertyMetadata("", Filtered_Changed));
+            DependencyProperty.Register(
+                "Filtered",
+                typeof(string),
+                typeof(PersonsViewModel),
+                new PropertyMetadata("", Filtered_Changed));
+
 
         private static void Filtered_Changed(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (d is PersonsViewModel o)
             {
-                o.Persons = PersonModels.GetPersons();
+                o.Persons = PersonModels.Persons;
                 var list = o.Persons.Where(x => x.LastName.Contains(o.Filtered) || x.FirstName.Contains(o.Filtered))
                     .ToList();
                 o.Persons = GetObservableCollection(list);
@@ -60,24 +64,16 @@ namespace WpfLerning.ViewModels
             set { SetValue(PersonsProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for Persons.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty PersonsProperty =
-            DependencyProperty.Register("Persons", typeof(ObservableCollection<PersonModels>), typeof(PersonsViewModel), new PropertyMetadata(null));
+            DependencyProperty.Register(
+                "Persons", 
+                typeof(ObservableCollection<PersonModels>), 
+                typeof(PersonsViewModel), 
+                new PropertyMetadata(null));
 
         public PersonsViewModel()
         {
             Persons = PersonModels.GetPersons();
-        }
-
-        private bool Filter(object obj)
-        {
-            var result = true;
-            if (obj is PersonModels o)
-            {
-                if ( !string.IsNullOrWhiteSpace(Filtered) && !o.FirstName.Contains(Filtered) && !o.LastName.Contains(Filtered)) result = false;
-            }
-
-            return result;
         }
     }
 }
