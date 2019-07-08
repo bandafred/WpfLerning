@@ -1,0 +1,35 @@
+﻿<Window x:Class="WpfLerning.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfLerning"
+        xmlns:viewModels="clr-namespace:WpfLerning.ViewModels"
+        xmlns:models="clr-namespace:WpfLerning.Models"
+        xmlns:view="clr-namespace:WpfLerning.View"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.DataContext>
+        <viewModels:PersonsViewModel/>
+    </Window.DataContext>
+   <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+       <StackPanel Orientation="Horizontal">
+            <TextBlock >Фильтр:</TextBlock>
+            <TextBox Width="300" Text="{Binding Filtered, UpdateSourceTrigger=PropertyChanged}"/>
+       </StackPanel>
+        <DataGrid Grid.Row="1" Margin="5" ItemsSource="{Binding Persons}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
+           </DataGrid.Columns>
+        </DataGrid>
+        <Button Grid.Row="2" >Button</Button>
+        <view:UserControl1 Grid.Row="3" />
+</Grid>
+</Window>

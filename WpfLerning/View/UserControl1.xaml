@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="WpfLerning.View.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WpfLerning.View"
+             xmlns:viewModels="clr-namespace:WpfLerning.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <viewModels:PersonsViewModel/>
+    </UserControl.DataContext>
+    <Grid>
+        <DataGrid Margin="5" ItemsSource="{Binding Persons, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
+            <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
+        </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
